@@ -1,36 +1,28 @@
-const pinger   = require( './pinger/pinger' );
-const verifier = require( './verifier/verifier' );
-const store    = require( './store/store' );
-const { Console } = require('console');
+const monitorManager = require( './monitor/monitorManager' );
+const storePing      = require( './store/storePing' );
+const storeSite      = require( './store/storeSite' );
+const { Console }    = require('console');
 
-const successCallBack = ( stringContent ) => {
-    return ( pinger, url ) => {
-        console.log( '-----------------------------' );
-        console.log( 'Testing : ' + url );
-        console.log( 'Response : ' + pinger );
-        console.log( 'Verify : ' + verifier.verify( pinger.body, new Map( [[ 'containString', stringContent ]] ) ) );
+// Site
+storeSite.store( 'https://budgetparticipatif.paris.fr', 'portlet', 1000, true, ( result ) => {
+    storeSite.count( ( count ) => {
+        console.log( 'Avant : ' + count );
+        
+        // Init monitors from DB
+        monitorManager.initMonitors();
+        
+        storeSite.deleteAll( ( result ) => {
+            storeSite.count( ( count ) => {
+                console.log( 'Après : ' + count );
+            });
+        });
+    });
+});
 
-        console.log( 'Storing ' + url );
-        store.store( url, pinger.timeMS, pinger.status, 'OK', ( result ) => { } );
-    }
-};
+// Monitor
+// monitor.monitor( 'https://budgetparticipatif.paris.fr', 'portlet' );
+// monitor.monitor( 'https://perdu.com', 'Perdu' );
+// monitor.monitor( 'https://poirierje.github.io/cv/cv.html', 'Ackia' );
 
-const errorCallBack = ( err ) => {
-    console.log( 'KO : ' + err );
-    console.log();
-};
-
-
-
-
-
-pinger.ping( 'https://budgetparticipatif.paris.fr', successCallBack( 'portlet' ), errorCallBack );
-
-pinger.ping( 'https://perdu.com', successCallBack( 'Perdu' ), errorCallBack );
-
-pinger.ping( 'https://poirierje.github.io/cv/cv.html', successCallBack( 'Ackia' ), errorCallBack );
-
-// store.find( ( result ) => { console.log( result ) } );
-store.count( ( count ) => { console.log( count ) } );
-
+// storePing.count( ( count ) => { console.log( count ) } );
 

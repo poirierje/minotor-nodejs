@@ -31,7 +31,7 @@ exports.store = ( url, durationMS, responseCode, verifyResult, callbackSuccess )
 
     data.save( ( err, result ) => {
         if ( err ) {
-            console.log( 'Error saving : ' + err );
+            console.log( 'Error saving ping : ' + err );
         } else {
             callbackSuccess( result );
         }
@@ -42,7 +42,7 @@ exports.store = ( url, durationMS, responseCode, verifyResult, callbackSuccess )
 exports.count = ( callbackSuccess ) => {
     pingResultModel.countDocuments( ( err, count ) => {
         if ( err ) {
-            console.log( 'Error finding : ' + err );
+            console.log( 'Error counting ping : ' + err );
         } else {
             callbackSuccess( count );
         };
@@ -53,7 +53,7 @@ exports.count = ( callbackSuccess ) => {
 exports.find = ( callbackSuccess ) => {
     pingResultModel.find( ( err, result ) => {
         if ( err ) {
-            console.log( 'Error finding : ' + err );
+            console.log( 'Error finding ping : ' + err );
         } else {
             callbackSuccess( result );
         };
