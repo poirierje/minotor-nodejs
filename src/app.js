@@ -1,28 +1,12 @@
-const monitorManager = require( './monitor/monitorManager' );
-const storePing      = require( './store/storePing' );
-const storeSite      = require( './store/storeSite' );
-const { Console }    = require('console');
+const express     = require( 'express' );
+const sitesRouter = require( './api/routes/sites' );
 
-// Site
-storeSite.store( 'https://budgetparticipatif.paris.fr', 'portlet', 1000, true, ( result ) => {
-    storeSite.count( ( count ) => {
-        console.log( 'Avant : ' + count );
-        
-        // Init monitors from DB
-        monitorManager.initMonitors();
-        
-        storeSite.deleteAll( ( result ) => {
-            storeSite.count( ( count ) => {
-                console.log( 'Après : ' + count );
-            });
-        });
-    });
+const app     = express();
+
+app.use( '/sites', sitesRouter );
+
+app.use( '/', ( req, res ) => {
+    res.status( 200 ).json( { message : 'Hello.' } );
 });
 
-// Monitor
-// monitor.monitor( 'https://budgetparticipatif.paris.fr', 'portlet' );
-// monitor.monitor( 'https://perdu.com', 'Perdu' );
-// monitor.monitor( 'https://poirierje.github.io/cv/cv.html', 'Ackia' );
-
-// storePing.count( ( count ) => { console.log( count ) } );
-
+module.exports = app;
