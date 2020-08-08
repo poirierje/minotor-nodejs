@@ -6,25 +6,19 @@ const monitors = new Map();
 
 // This function launches an unlimited monitor process.
 exports.addMonitor = ( site, callbackSuccess ) => {
-
-    console.log( 'Adding monitor process : ' + site._url );
-
     monitors.set( 
         site._url,
         setInterval( () => {
             monitor.monitor( site._url, site._content );    
         }, site._delayMS )
     );
-
     callbackSuccess();
 };
 
 // This function stops a monitor process.
-exports.removeMonitor = ( site ) => {
-
-    console.log( 'Removing monitor process : ' + site._url );
-
+exports.removeMonitor = ( site, callbackSuccess ) => {
     clearInterval( monitors.get( site._url ) );
+    callbackSuccess();
 };
 
 // This function launches all unlimited monitor process.
