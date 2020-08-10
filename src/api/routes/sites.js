@@ -6,7 +6,9 @@ const monitorManager = require( '../../monitor/monitorManager' );
 
 // Get all sites
 siteRouter.get( '/', ( req, res, next ) => {
-    res.status( 200 ).json( storeSite.find( () => { } ) );
+    storeSite.find( ( result ) => { 
+        res.status( 200 ).json( result ) 
+    });
 }); 
 
 // Add a site

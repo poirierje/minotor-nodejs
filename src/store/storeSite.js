@@ -50,6 +50,7 @@ exports.count = ( callbackSuccess ) => {
 
 // Function to find all records
 exports.find = ( callbackSuccess ) => {
+
     siteModel.find( ( err, result ) => {
         if ( err ) {
             console.log( 'Error finding site : ' + err );
