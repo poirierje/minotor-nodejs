@@ -1,7 +1,7 @@
 // This library stores pings into MongoDB.
 
 const mongoose = require('mongoose');
-mongoose.connect( 'mongodb://localhost/monitor', { useNewUrlParser : true, useUnifiedTopology: true } );
+mongoose.connect( 'mongodb://localhost/minotor', { useNewUrlParser : true, useUnifiedTopology: true } );
 
 const db = mongoose.connection;
 db.on  ( 'error', ( err ) => { console.log( 'Error accessing MongoDB : ' + err ); } );
