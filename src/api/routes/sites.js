@@ -7,7 +7,7 @@ const monitorManager = require( '../../monitor/monitorManager' );
 // Get all sites
 sitesRouter.get( '/', ( req, res, next ) => {
     storeSite.find( ( result ) => { 
-        res.status( 200 ).json( result ) 
+        res.header("Access-Control-Allow-Origin", "*").status(200).json(result)
     });
 }); 
 
@@ -20,7 +20,7 @@ sitesRouter.post( '/:url/:content/:delayMS', ( req, res, next ) => {
     // Store new site, then add monitor
     storeSite.store( url, content, delayMS, true, ( result ) => {
         monitorManager.addMonitor( result, () => {
-            res.status( 200 ).json({
+            res.header("Access-Control-Allow-Origin", "*").status( 200 ).json({
                 message: 'Created site : ' + url               
             });
         } );
