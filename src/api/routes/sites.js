@@ -1,18 +1,18 @@
 const express        = require( 'express' );
-const siteRouter     = express.Router();
+const sitesRouter    = express.Router();
 
 const storeSite      = require( '../../store/storeSite');
 const monitorManager = require( '../../monitor/monitorManager' );
 
 // Get all sites
-siteRouter.get( '/', ( req, res, next ) => {
+sitesRouter.get( '/', ( req, res, next ) => {
     storeSite.find( ( result ) => { 
         res.status( 200 ).json( result ) 
     });
 }); 
 
 // Add a site
-siteRouter.post( '/:url/:content/:delayMS', ( req, res, next ) => {
+sitesRouter.post( '/:url/:content/:delayMS', ( req, res, next ) => {
     const url     = req.params.url;
     const content = req.params.content;
     const delayMS = req.params.delayMS;
@@ -28,4 +28,4 @@ siteRouter.post( '/:url/:content/:delayMS', ( req, res, next ) => {
     
 }); 
 
-module.exports = siteRouter;
+module.exports = sitesRouter;
