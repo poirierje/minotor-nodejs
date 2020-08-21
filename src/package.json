@@ -1,0 +1,33 @@
+{
+  "name": "minotor-nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "mongodb": "^3.6.0"
+  },
+  "devDependencies": {
+    "express": "^4.17.1",
+    "http": "0.0.1-security",
+    "https": "^1.0.0",
+    "mongoose": "^5.9.28"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/poirierje/minotor-nodejs.git"
+  },
+  "keywords": [
+    "monitor",
+    "nodejs"
+  ],
+  "author": "Jerome POIRIER",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/poirierje/minotor-nodejs/issues"
+  },
+  "homepage": "https://github.com/poirierje/minotor-nodejs#readme"
+}
