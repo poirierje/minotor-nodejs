@@ -14,7 +14,7 @@ class Pinger
         this.timeMS = -1 ;
     }
 
-    ping( url ) {
+    ping( url, initialUrl ) {
         this.status = 999;
         this.body   = '';
         
@@ -27,11 +27,11 @@ class Pinger
             response.on( 'end' , ( ) => {
 
                 if ( response.statusCode === 302 ) {
-                    this.ping( response.headers['location'] );
+                    this.ping( response.headers['location'], initialUrl );
                 } else {
                     this.status = response.statusCode;
                     this.timeMS = Date.now() - start;
-                    this.callbackSUCCESS( this, url );
+                    this.callbackSUCCESS( this, url, initialUrl );
                 }
             });
         }).on("error", ( err ) => 
@@ -57,7 +57,7 @@ function truncate( str, n ){
 function ping( url, callbackSUCCESS, callbackERROR ) {
     _pinger = new Pinger( callbackSUCCESS, callbackERROR );
 
-    _pinger.ping( url );
+    _pinger.ping( url, url );
 }
 
 // Use example : 

@@ -9,12 +9,12 @@ exports.monitor = ( url, content ) => {
 
     pinger.ping( 
         url, 
-        ( pinger, url ) => {
+        ( pinger, url, initialUrl ) => {
             verifier.verify(
                 pinger.body,
                 new Map( [[ 'containString', content ]] ),
-                () => { storePing.store( url, pinger.timeMS, pinger.status, 'OK', ( result ) => { } ); },
-                () => { storePing.store( url, pinger.timeMS, pinger.status, 'KO', ( result ) => { } ); }
+                () => { storePing.store( initialUrl, pinger.timeMS, pinger.status, 'OK', ( result ) => { } ); },
+                () => { storePing.store( initialUrl, pinger.timeMS, pinger.status, 'KO', ( result ) => { } ); }
             );
         },
         ( error ) => { console.log( 'Error when monitoring ' + url + ' : ' + error ); }
